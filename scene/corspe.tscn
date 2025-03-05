@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://blno3wvx3yblx"]
+
+[ext_resource type="PackedScene" uid="uid://c358fo4anfd7j" path="res://assets/models/body.glb" id="1_v73ah"]
+
+[node name="body" instance=ExtResource("1_v73ah")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bnyi4kt7nmnmg"]
+
+[ext_resource type="Texture2D" uid="uid://bkpco7gh06q0r" path="res://assets/textures/world/palm_leaves.png" id="1_c0snu"]
+
+[resource]
+albedo_texture = ExtResource("1_c0snu")
+metallic_specular = 0.0
+texture_filter = 2

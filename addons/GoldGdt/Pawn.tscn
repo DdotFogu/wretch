@@ -1,0 +1,539 @@
+[gd_scene load_steps=40 format=4 uid="uid://bk1exu1p74wrs"]
+
+[ext_resource type="Script" path="res://addons/GoldGdt/src/GoldGdt_Pawn.gd" id="1_qx48f"]
+[ext_resource type="Resource" uid="uid://c770d2068in3p" path="res://addons/GoldGdt/Default.tres" id="2_m0ukv"]
+[ext_resource type="Script" path="res://addons/GoldGdt/src/GoldGdt_Controls.gd" id="3_sa8ga"]
+[ext_resource type="Script" path="res://addons/GoldGdt/src/GoldGdt_Move.gd" id="4_5gavo"]
+[ext_resource type="Script" path="res://addons/GoldGdt/src/GoldGdt_View.gd" id="5_say2d"]
+[ext_resource type="Script" path="res://addons/GoldGdt/src/GoldGdt_Body.gd" id="6_k6qi8"]
+[ext_resource type="Script" path="res://addons/GoldGdt/src/GoldGdt_Camera.gd" id="7_3b78s"]
+[ext_resource type="Script" path="res://addons/GoldGdt/src/GoldGdt_DebugUI.gd" id="7_vbtkw"]
+[ext_resource type="Script" path="res://Script/interact.gd" id="9_a03s7"]
+[ext_resource type="Script" path="res://Script/camera_recoil.gd" id="9_fa3ks"]
+[ext_resource type="Script" path="res://Script/camera_shake.gd" id="10_sjqds"]
+[ext_resource type="Script" path="res://Script/weapon_sway.gd" id="11_n57oh"]
+[ext_resource type="Texture2D" uid="uid://drkoh7bh2umci" path="res://assets/models/shotgun_Material Base Color.png" id="12_52l6d"]
+[ext_resource type="Script" path="res://Script/weapon_component.gd" id="12_kx01v"]
+[ext_resource type="Script" path="res://Script/item_bob.gd" id="13_s1wbv"]
+[ext_resource type="Texture2D" uid="uid://bjn6gv7sdaa5o" path="res://assets/textures/addons/kenney_particle_pack/scorch_01.png" id="14_fyh6l"]
+[ext_resource type="PackedScene" uid="uid://5uec5yi5g482" path="res://scene/projectiles/disc_proj.tscn" id="17_uyfhp"]
+[ext_resource type="Texture2D" uid="uid://d1sg426q17tk8" path="res://assets/textures/icons/shotgun_Crosshair.png" id="18_dxujm"]
+[ext_resource type="PackedScene" uid="uid://cpcbh308ye317" path="res://scene/health_component.tscn" id="19_3jipj"]
+[ext_resource type="Script" path="res://Script/inventory_component.gd" id="19_3vlam"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j7pn1"]
+size = Vector3(0.813, 1.829, 0.813)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u4rs7"]
+custom_solver_bias = 1.0
+margin = 0.25
+radius = 0.15
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gqlj4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_625fa"]
+shading_mode = 0
+albedo_texture = ExtResource("12_52l6d")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0n68"]
+resource_name = "Material"
+cull_mode = 2
+albedo_texture = ExtResource("12_52l6d")
+roughness = 0.0
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ouvrr"]
+resource_name = "shotgun_Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.25, -1.44032, -4.12496, 1.70254, 1.69032, 12.7482),
+"attribute_data": PackedByteArray("SRMHbigXuUhVKKJGYzZVSu0vAkevFzVBrygMP68oDD8ONuJCDjbiQkcwbD9HMGw/sQuBbZAPM0hNU3lG+j3qSbFLekaRkpJ9FxCvQE1T3T4zjfaCpT13Ql1a/dF8WpvPsUvePqU9d0JohxJu8pKtQXsKG/3kH7v85IxxQVI+G/18Jxv9noyTOOlFr/yxSxv9wJKVOOMClfxNUxr9M402eKkXNEFyFxI+fRdyQnp/jm6PNhIglDb9H9UvRhzVL0YcHRqiHh0aoh5NKiUcTSolHBcaoh4XGqIe/hn9HX4ZfSEUWZmuPFnprSA8MyBSPPYf6F8K1MxhEdHMYRHRzGER0Zhp9dDIZyXRow8GPgIQakI9DIQdqmETrqphE67KYQOuvREaHVdn/619EfIdhRHOIGuRZcO3QUoFgiTjAjONL8HwDQcF5B+FAzeNK8HrDQgF6w0IBQmVKcEMZoSW6UUDBgWVernjAusGWGvKmDONfLljCIIGYwiCBmSRq7ZpA0QHM41y0zxcG/1oh4+Z0JUf1aMUPGx6fwuaM40syeVh6fyMY5n80JXZylhrffwcDaVqQ2NbNu1jYjYfcecSen+io7p47RLOlCZZ9mOZMh9xGw8zjSlZen/nn7p4IQ+TXBw2xXi3oRSHjKMpccyhuFxYMrt46Z0zjcRgFIfSnx9x/p1rhwQ+PZNGMq9gvZAfcQ1uM41QM3p/G/26eBJuM43kKxSHBv0Wchv9PZPbKhRZdZCzeQb9zpQ5WR9jkTL4Y40yQWSgMnp/BD6FYjE23mJXNgRjVDb8Y202PZM0MjxfbJCdYLyQH3H8nR9x/J1shwI+bIcCPrhcVzK4XFcyu3jnnbt4551BZJ4y8WOSMnp/Aj56fwI+PHPuljxz7pafhfI2n4XyNmRfCCx4X8QrQXbolkF26JZDYgcsS2LXK0CC8TZAgvE2EXMFexFzBXtpkMcTMocgG7hgdBHDdUd8w3VHfLhgdBFAYz4QQGM+EDON3hTVgygbL45fU2R32XO3kW9yaZDiCgaRWlKzeY512Fw3CthcNwoAX4YIAF+GCDONZ3Izjf0LuZE4cGqNdFFqjXRRuZE4cHCQQFFwkEBR51s3CedbNwk0jTdwcl04BzSNN3ByXTgHM42ETLqRKGszjYRMupEoaxWQcU0VkHFNFFmcCP6GeUU1jS9rNY0va91Z2QbVhMtD/I5SR7eRjGYzjcubL5Dm2gaRYEkzjWnbUYQaR1GEGkczjZhmb5DWm3+B1EZ/gdRGM42lGjON4LDRk0rv0ZNK79aQxO7WkMTuNYILWzWCC1tQkHsbcZDksHp/wlt6f8Jb+pHN+DONvYg0jUMk+pHN+EWPiPdFj4j3jYRSY42EUmOpkPaJUJAUJSeCsGQngrBkTY8b/WOOSo0boDr1Y45KjTONSfvAnUP1wJ1D9f6GiWbZkX2O2ZF9jpebOvU+hUtoG6AR/TON0ZSXm3PvwJ0b/cCdG/11nb/tqJAElpebEv2Xmx3s"),
+"format": 34896613399,
+"index_count": 456,
+"index_data": PackedByteArray("AgALAAQAAgAHAAsAJwARABQAEwAQABgAEwAOABAABAAdAAIABAAgAB0AAQAoAAUAKAANABIAKAABAA0AFQADAAgAFQAPAAMAJAAeACEAJAAbAB4AAAAlAAwAAAAcACUADwAfAAMADwAiAB8ADgAjABAADgAmACMAKAAwAAUAKAA0ADAAWQBIAEQASABfAFwASABZAF8ACQA6ABkACQAsADoABgAvAAoABgAzAC8AOAA/ABcAOABGAD8APgBJAEEAPgBFAEkAKQBLADcAKQBCAEsAMgBOAC4AMgBRAE4APABhABYAPABnAGEATwBVAEwATwBSAFUAWwBVAFIAVQBeAFgAVQBbAF4ASgBUADYASgBdAFQANQBQADEANQBTAFAAOQBaAEcAOQBWAFoALQBXADsALQBNAFcAYABpAGMAYABmAGkAGgBlACsAGgBiAGUAQABoAD0AQABqAGgAKgBrAEMAKgBkAGsAbgB2AHAAbgBzAHYAkQCbAIAAkQCjAJsAfAB6AH8AfAB4AHoAcACDAG4AcACGAIMAjwB3AHsAjwCVAHcAfgBvAHUAfgB5AG8AhwCBAIQAhwCWAIEAkgCLAHcAkgCXAIsAeQCFAG8AeQCIAIUAeACJAHoAeACMAIkAigCWAIcAbACYAJMAbACCAJgAcQB9AHQAcQCNAH0AcgCUAI4AcgBtAJQApACnAJwApACvAKcAewChAJAAewCdAKEAfwCgAHwAfwCaAKAAsAC0AKgAsAC8ALQAngCtAKIAngCpAK0AmQCrAJ8AmQClAKsAuwDAALMAuwDIAMAAqgC5AK4AqgC1ALkApgC3AKwApgCyALcAxwDMAL8AxwDTAMwAuADFALoAuADDAMUAsQDCALYAsQC+AMIA0QDWAMkA0QDdANYAxADSAMYAxADPANIAvQDOAMEAvQDLAM4A3gDiANgA3gDpAOIA0ADfANQA0ADbAN8AygDaAM0AygDXANoA6gDuAOMA6gD2AO4A3ADrAOAA3ADnAOsA1QDlANkA1QDhAOUA9QD7AO0A9QACAfsA6AD4AOwA6AD0APgA5ADyAOYA5ADwAPIAAQEGAfoAAQENAQYB8wAEAfcA8wAAAQQB7wD+APEA7wD8AP4ADgESAQgBDgEXARIB/wAQAQMB/wAMARAB+QAJAf0A+QAFAQkBGQEWARMBCwEYAQ8BCwEVARgBBwEUAQoBBwERARQB"),
+"material": SubResource("StandardMaterial3D_u0n68"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 282,
+"vertex_data": PackedByteArray("AABFtNpXPf4AAEW02lcA/gAARbTaV1LWAAD//9pXBcAAAP//2ldS1gAARbTQTf/9AABFtNBNbtMAAEW00E1/1gAA///QTQfAAAD//9BNl8EAAP//0E110wAA///QTX/WLktFtNpXPf4uS0W02lcA/i5LRbTaV1fVLkv//9pXBcAuS///2ldX1S5LRbTQTf//LktFtNBNAP4uS0W00E1Y1S5L///QTf//Lkv//9BNB8AuS///0E12wy5L///QTQPGLkv//9BNWNUuS///0E2SwS5L///QTV3FAABFtP//874AAEW0//89/gAARbT//yTWAAD/////c78AAP////8DwAAA/////yTWLkv/////8r8uS/////8DwC5L/////1fVLktFtP//c78uS0W0//89/i5LRbT//1fVNwBFtNBN//83AEW00E3//TcARbTQTfLrNwBFtNBNbeo3AEW00E1dxWkVbeqgH8PBaRVt6qAfB9lpFW3qoB/q4WkVbeqgHzLTAABFtKAfAP4AAEW0oB9V/gAARbSgH9DhAABFtKAfKNM3AEW0oB8A/jcARbSgH1X+NwBFtKAfUus3AEW0oB+L7S5L//+gHz/ILkv//6AfcsYuS///oB+7wS5L//+gHwHZmZVBtdBN1sOZlUG10E3n6ZmVQbXQTXvpmZVBtdBNf8ajSodp0E3n6aNKh2nQTWnpo0qHadBNk+ujSodp0E3K6VWJ5aigH0nlVYnlqKAf5elVieWooB/PyFWJ5aigH0LG0VLEcaAfK+XRUsRxoB/O6dFSxHGgH+7r0VLEcaAfLO1slntoAABZ82yWe2gAAFPZbJZ7aAAA8eBJiHk7AQFZ80mIeTsBATv/SYh5OwEB0uB/iHs7AwFZ83+IezsDATz/f4h7OwMBzu4Fv5pyAQFZ8wW/mnIBAQPHBb+acgEBRtnl85A9fARZ8+XzkD18BLvX5fOQPXwE2sZfvXEGfgRZ81+9cQZ+BIryX71xBn4EmO8C7pcQwwVZ8wLulxDDBSHiLkv//0uHa9kuS///S4fIxS5L//9Lh13FNwBFtEuHa9k3AEW0S4cF7jcARbRLh13FmZVBtUuHa9mZlUG1S4dAxpmVQbVLh+fpo0qHaUuHa9mjSodpS4fn6aNKh2lLh1/tI0qZadVSBfojSplp1VIk7iNKmWnVUmXVI0pStdVS/78jSlK11VJl1SNKmWnQTf//I0qZadBNyvMjSplp0E1l1SNKUrXQTf//I0pStdBN/78jSlK10E1l1VGVmWnVUq7/UZWZadVSldVRlVK11VL/v1GVUrXVUpXVUZWZadBN6/5RlZlp0E2V1VGVUrXQTf//UZVStdBN/79RlVK10E2V1VGVUrXQTQ7GI0qZaVHLpcUjSplpUcvq/iNKmWlRy2XVI0pStVHLpcUjSlK1Ucv/vyNKUrVRy2XVUZVStVHLpcVRlVK1Ucv/v1GVUrVRy5XVUZWZaVHLpcVRlZlpUcvh/1GVmWlRy5XV2kqZadBN///aSplp0E3c89pKmWnQTe3+2kqZadBN6/7aSplp0E0OxtpKmWnVUrX/2kqZadVSBPraSplp1VI17tpKmWnVUs/+2kqZaVHLpcXaSplpUcvb/9pKmWlRy+n+UZVStc1N391RlVK1zU2V1VGVUrXNTQ7GUZVStc1NFsZRlZlpzU3r/lGVmWnNTdj+UZWZac1NDN5RlZlpzU2W1dpKmWnNTev+2kqZac1Nfv7aSplpzU0OxtpKmWnNTRfGPoAYoHJEWN0+gBigckTT2T6AGKByRBfGPoAYoHJEV8b4fB+CckT2//h8H4JyRB37+HwfgnJEsd34fB+CckTU2Qxh9H9yREH/DGH0f3JEE/sMYfR/ckQYxgxh9H9yRFfGaYHrnp8fXslpgeuenx+52WmB656fH3rfaYHrnp8fVsa6emGETCG3+7p6YYRMIUXJunphhEwhu9m6emGETCGx/x9i336rH6j7H2Lffqsflv8fYt9+qx963x9i336rH1bG660XcmQW1evrrRdyZBa9yeutF3JkFhbw660XcmQWet9Bo49bohhz7UGjj1uiGKfJQaOPW6IY0f9Bo49bohjx+YaOJlJ0FvL/ho4mUnQWGviGjiZSdBYW8IaOJlJ0Fnrfwb0jYggVyv3BvSNiCBWF5MG9I2IIFRLrwb0jYggVFvDRrO5Rhxff5NGs7lGHF3bs0azuUYcXofvRrO5Rhxfv5zGeXkIZFcr9MZ5eQhkVPvkxnl5CGRUV8DGeXkIZFeXmD+GUPmYV+N4P4ZQ+ZhXK/Q/hlD5mFfzjD+GUPmYVB+adyO41Zhdt3p3I7jVmF0jkncjuNWYXUeqdyO41ZhdGz0vBBB90Fcr9S8EEH3QVCeZLwQQfdBXZ6EvBBB90FVrQ//9rHzUa89///2sfNRoJ5v//ax81Gnfp//9rHzUadMA94h4cKxqA3z3iHhwrGnXAPeIeHCsaA8w94h4cKxpk1RbgAAA1GgvmFuAAADUad+kW4AAANRryzRbgAAA1GmfV/fxyIgI2qt39/HIiAjZ36f38ciICNgnS/fxyIgI2csBP4Q4dqjQI0k/hDh2qNHPAT+EOHao0muFP4Q4dqjRJ1SPd+AL5NandI934Avk1d+kj3fgC+TWK4SPd+AL5NUzVQtdzSAdBkd9C13NIB0H700LXc0gHQandQtdzSAdBDtLfv7w+5D6H39+/vD7kPg3S37+8PuQ+oezfv7w+5D7t4Ya32yj4QP/ThrfbKPhAqN2Gt9so+EBO7Ia32yj4QNfhQrO1bP5Epd9Cs7Vs/kQA1EKztWz+RO/2QrO1bP5EA9Uro6VbfkKc3yujpVt+Qu/2K6OlW35C2PMro6VbfkKJ7biT60ztRATUuJPrTO1EA9W4k+tM7UTY87iT60ztRBXtg3zao6lE7/aDfNqjqUQD1YN82qOpROzqbGzKkilC7/ZsbMqSKULY82xsypIpQuzq+VwPhJhEA9X5XA+EmETY8/lcD4SYROzqE371QNF9FkGC1r3UJfrsgoLWvdTQfRdBkdhtz7jWotQp+WqDd/TykZzYac+41qLUE371QNF9FkGsqllVJfrsgqyqWVWN2o5a0X0WQayqWVWN2o5aKflqg8XEelvAwa5brKpZVRT09pE74Vq6/3//fxN+9UBN1tjU/3//fyX7bIJN1tjU/3//fyX7bIKrqlhV/3//fxN+9UCrqlhVjdqOWtF9FkFKyujqh8uA6TvhWrq/98+Rxu4Zl83Vb8JA2JDP0X0WQbh8UVCJ1ZXCMtiWz9F9FkG4fFFQwMq864XLn+n7wn5hqcFzYUL31JEu7lyX/sTFXDaWN0vkleRKCsINXTaWN0vWldZKAMo26wbLAernj8JcOJY4S0HDy2KVwQZh24+1XCaWJUs1y0HrPMvq6dUjIlYh9MOUNtPmw9UjIlZTfRFQ4dIWxNUjIlZTfRFQTs0L6dUjIlbmwbFiXfMZldUjIlbricFW1cFYYtUjIlbnlMVh3c116NUjIlacjnZb/3//f/vFjGI74Vq6/3//f0HOxOY74Vq6/3//fzHGx2M2ljdL/3//fzaWN0vGzUDnqHkrQzJu5khp1UrVk/61gGnVStUJwAlAh3M7RmnVStUKwApAk/61gGnVStWmfyxA0aqjVZP+tYDRqqNVz36XQNGqo1UKwApAk/61gNGqo1Xk4jS6/3//f89+l0Bp1UrV/3//f5P+tYBp1UrV/3//f5P+tYDRqqNV/3//f+8/3v/RqqNVCMAJQJhzM0bSfpZAz36XQOTiNLqtfyhAqHkrQ0Ju3kixfqZA/3//f+w/1//OfphAOa7fUNGqo1Xk4jS62eJKus9+l0DEf8Q1Yq4lUdGqpFXPfpdAOH8UNuTiNLrb4kq6u60LUO+lD1Pb4km6w+JWun6BhDa4g7pBDq6XUPGlEVNmgN81roO0Qd7iSbrC4la6OKK0Xt+l9FIv1VC1wOJWulmEFkIyoqBe4KX1Uo7S1P1KhA1Ch9Ll/TDVT7XA4la65qXiflKi/l4L3RqrMdVPtQGms39Mou1eh32tUiLcQ/mbfaVSuNsb+gfdHasx1U+1SyUoWjCbZI3apYB+Ct0bqxWbfo3xpTR/g9yB+MXkOfFLJSha+tuV+QbdHqtz5IfxL5G3oEslKFpamzyNNSIZUnORoaBDm1KNfeWH8ETlgOJLJShaKCIhUgzl9PDg5UjitpDfoCMiJFJNlRZLPOzrke6QzaAa7PqRXuMu4/rZcdAWIixSTZUWS4HkxuL92XDQrow4VU2VFkuZ7YSNmO1VkcXtao157WKRTNPxzNjZgNCujDhVTZUWSy/TA83c2X7QrO/thfyF4mKujDdV5+ztjWfwYYUN7deN1MtcztfTnsz9heNirYw3VSXL4M6y07TMP+7/hv2F42KQx6Cenn4HgtzuioaQx6CeSDfpYrLN88z+heVinn4Hgkg36WLEzKfNkMegnp5+B4IF6QA1kMegnkg36WIF6QA1nn4Hgkg36WIF6QA1")
+}]
+
+[sub_resource type="Animation" id="Animation_cucmd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_e6dmd"]
+resource_name = "pickup"
+
+[sub_resource type="Animation" id="Animation_ong83"]
+resource_name = "shoot"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333, 0.3, 0.5, 0.633333),
+"transitions": PackedFloat32Array(0.25, 0.233258, 0.307786, 0.307786, 1, 0.267944, 1),
+"update": 0,
+"values": [Vector3(0.075, -0.12, -0.115), Vector3(0.075, -0.12, 0.165), Vector3(0.075, -0.12, -0.115), Vector3(0.075, -0.12, -0.115), Vector3(0.14, -0.12, -0.115), Vector3(0.14, -0.12, -0.115), Vector3(0.075, -0.12, -0.115)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333, 0.266667, 0.4, 0.533333, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.191986, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(3.14159, 0, 0), Vector3(6.45772, 0, 0), Vector3(6.28319, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CPUParticles3D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("shoot")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [],
+"times": PackedFloat32Array()
+}
+tracks/3/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sn41g"]
+_data = {
+"RESET": SubResource("Animation_cucmd"),
+"pickup": SubResource("Animation_e6dmd"),
+"shoot": SubResource("Animation_ong83")
+}
+
+[sub_resource type="Gradient" id="Gradient_hxnrv"]
+offsets = PackedFloat32Array(0, 0.5, 0.964286)
+colors = PackedColorArray(0, 0, 0, 1, 0.428571, 0.428571, 0.428571, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wkmh3"]
+gradient = SubResource("Gradient_hxnrv")
+
+[sub_resource type="Curve" id="Curve_7xktt"]
+max_value = 25.0
+_data = [Vector2(0, 25), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_gro7a"]
+curve = SubResource("Curve_7xktt")
+
+[sub_resource type="Curve" id="Curve_jv2cd"]
+max_value = 0.2
+_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.785714, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wdkxs"]
+curve = SubResource("Curve_jv2cd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_45vxa"]
+angle_min = -720.0
+angle_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_wdkxs")
+color = Color(1, 0, 0, 1)
+color_ramp = SubResource("GradientTexture1D_wkmh3")
+emission_curve = SubResource("CurveTexture_gro7a")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3v0dv"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 0, 1)
+albedo_texture = ExtResource("14_fyh6l")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+proximity_fade_distance = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_oiok1"]
+material = SubResource("StandardMaterial3D_3v0dv")
+
+[node name="Player" type="Node3D" node_paths=PackedStringArray("View", "Camera")]
+script = ExtResource("1_qx48f")
+View = NodePath("View Control")
+Camera = NodePath("Interpolated Camera")
+
+[node name="Debug UI" type="Control" parent="." node_paths=PackedStringArray("Controls", "View", "Body", "GameInfo", "ControlsInfo", "ViewInfo", "BodyInfo")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 0.0
+mouse_filter = 2
+script = ExtResource("7_vbtkw")
+Controls = NodePath("../User Input")
+View = NodePath("../View Control")
+Body = NodePath("../Body")
+GameInfo = NodePath("Game/Info")
+ControlsInfo = NodePath("Controls/Info")
+ViewInfo = NodePath("View Control/Info")
+BodyInfo = NodePath("Body/Info")
+
+[node name="Game" type="Control" parent="Debug UI"]
+anchors_preset = 0
+offset_left = 8.0
+offset_right = 48.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Debug UI/Game"]
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 20
+text = "Game"
+
+[node name="Info" type="Label" parent="Debug UI/Game"]
+layout_mode = 2
+offset_top = 28.0
+offset_right = 129.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 12
+text = "Rendering FPS: #
+Physics Tick Rate: #
+Physics Frame Time: #"
+
+[node name="Controls" type="Control" parent="Debug UI"]
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 95.0
+offset_right = 48.0
+offset_bottom = 135.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Debug UI/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Controls"
+
+[node name="Info" type="Label" parent="Debug UI/Controls"]
+layout_mode = 0
+offset_top = 28.0
+offset_right = 135.0
+offset_bottom = 145.0
+theme_override_font_sizes/font_size = 12
+text = "Movement Input: (#, #)
+Wish Direction: (#, #, #)
+Wish Speed: #
+Jump Pressed: ?
+Duck Pressed: ?"
+
+[node name="View Control" type="Control" parent="Debug UI"]
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 232.0
+offset_right = 48.0
+offset_bottom = 272.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Debug UI/View Control"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "View Control"
+
+[node name="Info" type="Label" parent="Debug UI/View Control"]
+layout_mode = 0
+offset_top = 28.0
+offset_right = 114.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 12
+text = "View Angles: (#, #, #)
+View Offset: #"
+
+[node name="Body" type="Control" parent="Debug UI"]
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 309.0
+offset_right = 48.0
+offset_bottom = 349.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Debug UI/Body"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Body
+"
+
+[node name="Info" type="Label" parent="Debug UI/Body"]
+layout_mode = 0
+offset_top = 28.0
+offset_right = 59.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 12
+text = "Velocity: (#, #, #)
+Speed: # m/s (# u/s)
+Ducking: ?
+Ducked: ?"
+
+[node name="Attribution" type="RichTextLabel" parent="Debug UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -28.0
+offset_right = 262.0
+offset_bottom = -5.0
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "GoldGdt Character Controller
+Copyright (c) 2024 ratmarrow
+"
+fit_content = true
+
+[node name="User Input" type="Node" parent="." node_paths=PackedStringArray("Body", "Move", "View")]
+script = ExtResource("3_sa8ga")
+Parameters = ExtResource("2_m0ukv")
+Body = NodePath("../Body")
+Move = NodePath("../Move Functions")
+View = NodePath("../View Control")
+
+[node name="View Control" type="Node" parent="." node_paths=PackedStringArray("Body", "horizontal_view", "vertical_view", "camera_mount")]
+script = ExtResource("5_say2d")
+Parameters = ExtResource("2_m0ukv")
+Body = NodePath("../Body")
+horizontal_view = NodePath("../Body/Horizontal View")
+vertical_view = NodePath("../Body/Horizontal View/Vertical View")
+camera_mount = NodePath("../Body/Horizontal View/Vertical View/Camera Mount")
+
+[node name="Move Functions" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("4_5gavo")
+Parameters = ExtResource("2_m0ukv")
+Body = NodePath("../Body")
+
+[node name="Body" type="CharacterBody3D" parent="." node_paths=PackedStringArray("View", "collision_hull", "duck_timer", "dash_timer")]
+collision_layer = 2
+collision_mask = 5
+floor_constant_speed = true
+script = ExtResource("6_k6qi8")
+Parameters = ExtResource("2_m0ukv")
+View = NodePath("../View Control")
+collision_hull = NodePath("Collision Hull")
+duck_timer = NodePath("Duck Timer")
+dash_timer = NodePath("Dash Timer")
+
+[node name="Collision Hull" type="CollisionShape3D" parent="Body"]
+visible = false
+shape = SubResource("BoxShape3D_j7pn1")
+
+[node name="Duck Timer" type="Timer" parent="Body"]
+
+[node name="Dash Timer" type="Timer" parent="Body"]
+wait_time = 0.5
+
+[node name="Horizontal View" type="Node3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.711, 0)
+
+[node name="Vertical View" type="Node3D" parent="Body/Horizontal View"]
+
+[node name="Camera Mount" type="Marker3D" parent="Body/Horizontal View/Vertical View"]
+gizmo_extents = 0.5
+
+[node name="Interpolated Camera" type="Node3D" parent="." node_paths=PackedStringArray("target", "camera_arm", "camera_anchor", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.711, 0)
+script = ExtResource("7_3b78s")
+Parameters = ExtResource("2_m0ukv")
+target = NodePath("../Body/Horizontal View/Vertical View/Camera Mount")
+camera_arm = NodePath("Arm")
+camera_anchor = NodePath("Arm/Arm Anchor")
+camera = NodePath("Arm/Arm Anchor/Camera Recoil/Camera Shake/Camera")
+
+[node name="Arm" type="SpringArm3D" parent="Interpolated Camera"]
+shape = SubResource("SphereShape3D_u4rs7")
+spring_length = 0.0
+margin = 0.1
+
+[node name="Arm Anchor" type="Node3D" parent="Interpolated Camera/Arm"]
+editor_description = "
+"
+
+[node name="Camera Recoil" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor"]
+script = ExtResource("9_fa3ks")
+recoil = Vector3(0.8, 0.4, 0)
+snappiness = 2.0
+returnSpeed = 10.0
+
+[node name="Camera Shake" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor/Camera Recoil"]
+script = ExtResource("10_sjqds")
+noise = SubResource("FastNoiseLite_gqlj4")
+
+[node name="Camera" type="Camera3D" parent="Interpolated Camera/Arm/Arm Anchor/Camera Recoil/Camera Shake"]
+fov = 105.0
+near = 0.001
+
+[node name="InteractCast" type="RayCast3D" parent="Interpolated Camera/Arm/Arm Anchor"]
+target_position = Vector3(0, 0, -3)
+collision_mask = 8
+collide_with_areas = true
+script = ExtResource("9_a03s7")
+
+[node name="viewmodels" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor"]
+script = ExtResource("11_n57oh")
+sway_left = Vector3(0, 0.1, 0)
+sway_right = Vector3(0, -0.1, 0)
+
+[node name="Item Bob" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels"]
+script = ExtResource("13_s1wbv")
+
+[node name="shotgun" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.075, -0.0834502, -0.115)
+visible = false
+
+[node name="Cube" type="MeshInstance3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/shotgun"]
+transform = Transform3D(-0.707107, -0.707107, 8.74228e-08, -0.707107, 0.707107, 0, -6.18172e-08, -6.18172e-08, -1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_625fa")
+mesh = SubResource("ArrayMesh_ouvrr")
+skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/shotgun"]
+libraries = {
+"": SubResource("AnimationLibrary_sn41g")
+}
+
+[node name="shoot" type="AudioStreamPlayer3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/shotgun"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, -8.80273)
+volume_db = -35.0
+max_distance = 4096.0
+playback_type = 1
+
+[node name="CPUParticles3D" type="GPUParticles3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/shotgun"]
+transform = Transform3D(1, 0, 0, 3.90463e-13, 1, -4.54747e-13, -5.55286e-15, 4.54747e-13, 1, -5.96046e-07, -9.53674e-07, -8.77718)
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_45vxa")
+draw_pass_1 = SubResource("QuadMesh_oiok1")
+
+[node name="disc_launcher" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.075, -0.12, -0.115)
+visible = false
+
+[node name="Cube" type="MeshInstance3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/disc_launcher"]
+transform = Transform3D(-0.707107, -0.707107, 8.74228e-08, -0.707107, 0.707107, 0, -6.18172e-08, -6.18172e-08, -1, 0, 0, 0)
+mesh = SubResource("ArrayMesh_ouvrr")
+skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/disc_launcher"]
+libraries = {
+"": SubResource("AnimationLibrary_sn41g")
+}
+
+[node name="shoot" type="AudioStreamPlayer3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/disc_launcher"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, -8.80273)
+volume_db = -35.0
+max_distance = 4096.0
+playback_type = 1
+
+[node name="CPUParticles3D" type="GPUParticles3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/disc_launcher"]
+transform = Transform3D(1, 0, 0, 3.90463e-13, 1, -4.54747e-13, -5.55286e-15, 4.54747e-13, 1, -5.96046e-07, -9.53674e-07, -8.77718)
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_45vxa")
+draw_pass_1 = SubResource("QuadMesh_oiok1")
+
+[node name="launch_point" type="Marker3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/disc_launcher"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.64773)
+
+[node name="weapon_component" type="Node3D" parent="."]
+script = ExtResource("12_kx01v")
+Weapons = Array[Dictionary]([{
+"ammo": 25,
+"autofire": true,
+"bullets": 5,
+"crosshair": NodePath("Crosshairs/Shotgun Crosshair"),
+"damage": 10,
+"firerate": 0.66,
+"hitscan": true,
+"max ammo": 25,
+"spread": 1,
+"viewmodel": NodePath("../Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/shotgun")
+}, {
+"autofire": true,
+"bullets": 1,
+"crosshair": NodePath("Crosshairs/Shotgun Crosshair"),
+"damage": 10,
+"firerate": 0.1,
+"hitscan": false,
+"projectile": ExtResource("17_uyfhp"),
+"spread": 1,
+"viewmodel": NodePath("../Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/disc_launcher")
+}])
+
+[node name="waitTime" type="Timer" parent="weapon_component"]
+unique_name_in_owner = true
+wait_time = 0.7
+
+[node name="Crosshairs" type="CanvasLayer" parent="weapon_component"]
+layer = 128
+
+[node name="Shotgun Crosshair" type="TextureRect" parent="weapon_component/Crosshairs"]
+self_modulate = Color(1, 1, 1, 0.784314)
+z_index = -1
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("18_dxujm")
+
+[node name="inventory_component" type="Node3D" parent="."]
+script = ExtResource("19_3vlam")
+
+[node name="health_component" parent="." groups=["player"] instance=ExtResource("19_3jipj")]
+
+[connection signal="timeout" from="Body/Dash Timer" to="Body" method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="weapon_component/waitTime" to="weapon_component" method="_on_wait_time_timeout"]

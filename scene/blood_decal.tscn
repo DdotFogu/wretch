@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://3lp3thbif4dh"]
+
+[ext_resource type="Texture2D" uid="uid://cqhj5e85axo0i" path="res://assets/textures/other/bloodDecal1.png" id="1_jo2xm"]
+
+[node name="BloodDecal" type="Decal"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.64948, 1.18695, -4.03834)
+size = Vector3(4, 0.3, 4)
+texture_albedo = ExtResource("1_jo2xm")
+normal_fade = 0.999
+distance_fade_begin = 34.8

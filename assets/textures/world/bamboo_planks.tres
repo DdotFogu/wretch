@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c0jso7ucit16b"]
+
+[ext_resource type="Texture2D" uid="uid://cgf5hgypw7g2f" path="res://assets/textures/world/bamboo_planks.png" id="1_8osod"]
+
+[resource]
+albedo_texture = ExtResource("1_8osod")
+metallic_specular = 0.0
+texture_filter = 2

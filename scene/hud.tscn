@@ -1,0 +1,204 @@
+[gd_scene load_steps=12 format=3 uid="uid://cflj7cj4iiwqa"]
+
+[ext_resource type="Script" path="res://Script/shake.gd" id="1_bgxbm"]
+[ext_resource type="Script" path="res://Script/interact_text.gd" id="1_bv5nq"]
+[ext_resource type="Shader" path="res://shader/vignette.gdshader" id="1_iomu0"]
+[ext_resource type="Script" path="res://Script/fps.gd" id="1_j1qk6"]
+[ext_resource type="Texture2D" uid="uid://d24l4j7tsv24c" path="res://assets/textures/icons/cursor.png" id="1_onret"]
+[ext_resource type="AudioStream" uid="uid://bpt8qf7yovffk" path="res://assets/mp3/sam.wav" id="2_5ayex"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jv6ai"]
+shader = ExtResource("1_iomu0")
+shader_parameter/outerRadius = 1.7
+shader_parameter/MainAlpha = 0.2
+shader_parameter/vignette_color = Color(0.672305, 1.76881e-06, 6.257e-07, 1)
+
+[sub_resource type="Animation" id="Animation_qf7ue"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/MainAlpha")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+
+[sub_resource type="Animation" id="Animation_julan"]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/MainAlpha")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.6, 1),
+"update": 0,
+"values": [0.4, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ukeij"]
+_data = {
+"RESET": SubResource("Animation_qf7ue"),
+"hurt": SubResource("Animation_julan")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hjf4l"]
+shader = ExtResource("1_iomu0")
+shader_parameter/outerRadius = 1.7
+shader_parameter/MainAlpha = 0.2
+shader_parameter/vignette_color = Color(0, 1, 0, 1)
+
+[node name="Hud" type="CanvasLayer"]
+
+[node name="FPS" type="Label" parent="."]
+offset_right = 1152.0
+offset_bottom = 23.0
+text = "FPS 100"
+horizontal_alignment = 1
+script = ExtResource("1_j1qk6")
+
+[node name="Cursor" type="TextureRect" parent="."]
+z_index = 10
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.13
+offset_top = -3.35001
+offset_right = 29.87
+offset_bottom = 36.65
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_onret")
+
+[node name="InteractText" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+offset_top = 229.0
+offset_right = 1152.0
+offset_bottom = 648.0
+bbcode_enabled = true
+script = ExtResource("1_bv5nq")
+
+[node name="Type" type="AudioStreamPlayer" parent="InteractText"]
+stream = ExtResource("2_5ayex")
+volume_db = -20.0
+
+[node name="Ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="items" type="Control" parent="Ui"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -54.0
+offset_right = 65.0
+offset_bottom = -14.0
+grow_vertical = 0
+script = ExtResource("1_bgxbm")
+y_offset = 594.0
+x_offset = 25.0
+
+[node name="health" type="RichTextLabel" parent="Ui"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 575.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][font=\"res://October Crow.ttf\"][shake rate=50.0 level=0 connected=0][font_size=32][color=]Health
+100"
+script = ExtResource("1_bgxbm")
+y_offset = 575.0
+
+[node name="ammo" type="RichTextLabel" parent="Ui"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 518.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][font=\"res://October Crow.ttf\"][shake rate=50.0 level=0 connected=0][font_size=24][color=]Shotgun
+25"
+script = ExtResource("1_bgxbm")
+shakeFade = 10.0
+y_offset = 518.0
+
+[node name="hurt_vignette" type="ColorRect" parent="Ui"]
+visible = false
+material = SubResource("ShaderMaterial_jv6ai")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ui/hurt_vignette"]
+libraries = {
+"": SubResource("AnimationLibrary_ukeij")
+}
+
+[node name="heal_vignette" type="ColorRect" parent="Ui"]
+visible = false
+material = SubResource("ShaderMaterial_hjf4l")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ui/heal_vignette"]
+libraries = {
+"": SubResource("AnimationLibrary_ukeij")
+}

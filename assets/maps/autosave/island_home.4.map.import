@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://d3t4odxjxvxc3"
+path="res://.godot/imported/island_home.4.map-d5296edda906d06b48e16b88ac7d97e0.tres"
+
+[deps]
+
+source_file="res://assets/maps/autosave/island_home.4.map"
+dest_files=["res://.godot/imported/island_home.4.map-d5296edda906d06b48e16b88ac7d97e0.tres"]
+
+[params]
+

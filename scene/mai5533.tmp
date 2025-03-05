@@ -1,0 +1,121 @@
+[gd_scene load_steps=18 format=3 uid="uid://b4ouyqpohol2k"]
+
+[ext_resource type="PackedScene" uid="uid://bnjsc4lxwpbar" path="res://scene/test_map.tscn" id="1_od78j"]
+[ext_resource type="PackedScene" uid="uid://bk1exu1p74wrs" path="res://addons/GoldGdt/Pawn.tscn" id="2_doruv"]
+[ext_resource type="PackedScene" uid="uid://blno3wvx3yblx" path="res://scene/corspe.tscn" id="3_sbdxu"]
+[ext_resource type="Texture2D" uid="uid://d24l4j7tsv24c" path="res://textures/cursor.png" id="4_lnr6y"]
+[ext_resource type="Script" path="res://Script/interactText.gd" id="4_wv0tj"]
+[ext_resource type="Script" path="res://Script/interact_text.gd" id="6_lonbj"]
+[ext_resource type="AudioStream" uid="uid://bpt8qf7yovffk" path="res://mp3/sam.wav" id="7_0o81w"]
+[ext_resource type="Script" path="res://Script/fps.gd" id="8_agj0p"]
+[ext_resource type="PackedScene" uid="uid://b0g71ia3l0tnt" path="res://scene/shotgun.tscn" id="9_ck4ii"]
+[ext_resource type="Script" path="res://Script/shotgun_pickup.gd" id="10_5vhr1"]
+[ext_resource type="AudioStream" uid="uid://dptdb7w70lgve" path="res://mp3/shotgunCock.mp3" id="11_y1jj5"]
+[ext_resource type="PackedScene" uid="uid://cpcbh308ye317" path="res://scene/health_component.tscn" id="12_sgyvr"]
+[ext_resource type="PackedScene" uid="uid://x6rrs588twf4" path="res://scene/fleshgib.tscn" id="13_v6gip"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0r3cb"]
+size = Vector3(1.9942, 7.59753, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7u571"]
+size = Vector3(1, 5.52319, 24.8956)
+
+[sub_resource type="BoxMesh" id="BoxMesh_77dlr"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_y7p8l"]
+data = PackedVector3Array(-0.5, 1, 0.5, 0.5, 1, 0.5, -0.5, -1, 0.5, 0.5, 1, 0.5, 0.5, -1, 0.5, -0.5, -1, 0.5, 0.5, 1, -0.5, -0.5, 1, -0.5, 0.5, -1, -0.5, -0.5, 1, -0.5, -0.5, -1, -0.5, 0.5, -1, -0.5, 0.5, 1, 0.5, 0.5, 1, -0.5, 0.5, -1, 0.5, 0.5, 1, -0.5, 0.5, -1, -0.5, 0.5, -1, 0.5, -0.5, 1, -0.5, -0.5, 1, 0.5, -0.5, -1, -0.5, -0.5, 1, 0.5, -0.5, -1, 0.5, -0.5, -1, -0.5, 0.5, 1, 0.5, -0.5, 1, 0.5, 0.5, 1, -0.5, -0.5, 1, 0.5, -0.5, 1, -0.5, 0.5, 1, -0.5, -0.5, -1, 0.5, 0.5, -1, 0.5, -0.5, -1, -0.5, 0.5, -1, 0.5, 0.5, -1, -0.5, -0.5, -1, -0.5)
+
+[node name="Main" type="Node3D"]
+
+[node name="test_map" parent="." instance=ExtResource("1_od78j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.1549, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_doruv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.10732, 0)
+
+[node name="Corspe" parent="." instance=ExtResource("3_sbdxu")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 2.17998, -11.4141)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Corspe"]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("4_wv0tj")
+bbcode = "[center][font=res://October Crow.ttf][font_size=24][color=FireBrick][shake rate=20.0 level=5 connected=1]"
+text = "Its your //.//.//.//// wife's rotting corspe."
+sizeY = 359
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Corspe/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0204163, -0.63092, 0)
+shape = SubResource("BoxShape3D_0r3cb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Cursor" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(19.745, 20.09)
+texture = ExtResource("4_lnr6y")
+
+[node name="InteractText" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_top = 229.0
+offset_right = 1152.0
+offset_bottom = 648.0
+bbcode_enabled = true
+script = ExtResource("6_lonbj")
+
+[node name="Type" type="AudioStreamPlayer" parent="CanvasLayer/InteractText"]
+stream = ExtResource("7_0o81w")
+volume_db = -20.0
+
+[node name="FPS" type="Label" parent="CanvasLayer"]
+offset_right = 1152.0
+offset_bottom = 23.0
+text = "FPS 100"
+horizontal_alignment = 1
+script = ExtResource("8_agj0p")
+
+[node name="shotgun" parent="." instance=ExtResource("9_ck4ii")]
+transform = Transform3D(0.00030368, -0.0493077, -0.0869981, 0.0999994, -4.37128e-09, 0.000349065, -0.00017212, -0.0869986, 0.0493074, -7.15492, 0.959594, -2.42931)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="shotgun"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("10_5vhr1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="shotgun/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0570087, -0.230286)
+shape = SubResource("BoxShape3D_7u571")
+
+[node name="Cock" type="AudioStreamPlayer" parent="shotgun"]
+stream = ExtResource("11_y1jj5")
+volume_db = -20.0
+
+[node name="Dummy" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.49637, 9.53674e-07, -30.9976)
+collision_layer = 4
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Dummy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.888, 0)
+mesh = SubResource("BoxMesh_77dlr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dummy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.888, 0)
+shape = SubResource("ConcavePolygonShape3D_y7p8l")
+
+[node name="health_component" parent="Dummy" instance=ExtResource("12_sgyvr")]
+
+[node name="fleshgib" parent="." instance=ExtResource("13_v6gip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
