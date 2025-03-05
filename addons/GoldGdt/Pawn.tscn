@@ -90,7 +90,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.233333, 0.3, 0.5, 0.633333),
 "transitions": PackedFloat32Array(0.25, 0.233258, 0.307786, 0.307786, 1, 0.267944, 1),
 "update": 0,
-"values": [Vector3(0.075, -0.12, -0.115), Vector3(0.075, -0.12, 0.165), Vector3(0.075, -0.12, -0.115), Vector3(0.075, -0.12, -0.115), Vector3(0.14, -0.12, -0.115), Vector3(0.14, -0.12, -0.115), Vector3(0.075, -0.12, -0.115)]
+"values": [Vector3(0.075, -0.083, -0.115), Vector3(0.075, -0.083, 0.165), Vector3(0.075, -0.083, -0.115), Vector3(0.075, -0.083, -0.115), Vector3(0.14, -0.083, -0.115), Vector3(0.14, -0.083, -0.115), Vector3(0.075, -0.083, -0.115)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -409,15 +409,14 @@ script = ExtResource("9_a03s7")
 
 [node name="viewmodels" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor"]
 script = ExtResource("11_n57oh")
-sway_left = Vector3(0, 0.1, 0)
-sway_right = Vector3(0, -0.1, 0)
+sway_left = Vector3(0, 0.4, 0)
+sway_right = Vector3(0, -0.4, 0)
 
 [node name="Item Bob" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels"]
 script = ExtResource("13_s1wbv")
 
 [node name="shotgun" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob"]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.075, -0.0834502, -0.115)
-visible = false
+transform = Transform3D(0.04, 0, 0, 0, 0.04, -1.78655e-07, 0, 1.78655e-07, 0.04, 0.075, -0.083, -0.115)
 
 [node name="Cube" type="MeshInstance3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/shotgun"]
 transform = Transform3D(-0.707107, -0.707107, 8.74228e-08, -0.707107, 0.707107, 0, -6.18172e-08, -6.18172e-08, -1, 0, 0, 0)

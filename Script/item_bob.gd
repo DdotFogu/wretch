@@ -17,7 +17,7 @@ func _camera_mount_bob() -> void:
 		return
 	
 	if body.is_on_floor():
-		bob = lerp(0.0, sin(Time.get_ticks_msec() * BOB_FREQUENCY) / BOB_FREQUENCY, (simvel.length() / 2.0) / body.Parameters.FORWARD_SPEED) * 0.0001
+		bob = lerp(0.0, sin(Time.get_ticks_msec() * BOB_FREQUENCY) / BOB_FREQUENCY, (simvel.length() / 2.0) / body.Parameters.FORWARD_SPEED) * 0.0002
 	else:
 		bob = 0.0
 	arm_anchor.position.y = lerp(arm_anchor.position.y, bob, 0.5)

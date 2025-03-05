@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bk1exu1p74wrs" path="res://addons/GoldGdt/Pawn.tscn" id="4_oewl3"]
 [ext_resource type="Material" uid="uid://0ficnklmsrka" path="res://assets/textures/world/wood_planks.tres" id="5_ajewk"]
 [ext_resource type="PackedScene" uid="uid://cflj7cj4iiwqa" path="res://scene/hud.tscn" id="6_2w3by"]
-[ext_resource type="Shader" path="res://sky.gdshader" id="7_gx530"]
+[ext_resource type="Shader" path="res://shader/sky.gdshader" id="7_gx530"]
 [ext_resource type="Script" path="res://Script/texture_scroll.gd" id="9_7yysl"]
 [ext_resource type="Texture2D" uid="uid://dknxtknrikuu8" path="res://assets/textures/world/water.png" id="9_f36aq"]
 [ext_resource type="PackedScene" uid="uid://dtkq6rri5iquo" path="res://scene/ammo_small.tscn" id="11_oo3an"]

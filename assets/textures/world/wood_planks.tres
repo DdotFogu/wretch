@@ -1,8 +1,8 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://0ficnklmsrka"]
 
-[ext_resource type="Texture2D" uid="uid://dydn3eao1lxyn" path="res://assets/textures/world/wood_planks.png" id="1_pr66n"]
+[ext_resource type="Texture2D" uid="uid://ga8d3o4bvob4" path="res://assets/textures/world/stone_path.png" id="1_qx2id"]
 
 [resource]
-albedo_texture = ExtResource("1_pr66n")
+albedo_texture = ExtResource("1_qx2id")
 metallic_specular = 0.0
 texture_filter = 2

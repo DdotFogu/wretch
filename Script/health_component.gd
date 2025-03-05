@@ -70,24 +70,24 @@ func die():
 	if is_in_group("enemy"):
 		for count in randi_range(5, 8):
 			pass
-			var gib = gibs.pick_random().instantiate()
-			gib.linear_velocity = Vector3(randf_range(-10, 10), randf_range(12, 16), randf_range(-10, 10))
-			#gib.rotation = Vector3(randf_range(-360, 360), randf_range(-360, 360), randf_range(-360, 360))
-			gib.position = global_position
-			gib.position.x += randf_range(-1, 1)
-			gib.position.z += randf_range(-1, 1)
-			$"../..".add_child(gib)
-			
-			var blood = preload("res://scene/blood.tscn").instantiate()
-			blood.position = global_position
-			blood.emitting = true
-			blood.position.y += 0.3
-			$"../..".add_child(blood)
-			
-			var bloodtrail = preload("res://scene/bloodtrail.tscn").instantiate()
-			bloodtrail.position = global_position
-			bloodtrail.position.y += 0.3
-			bloodtrail.emitting = true
-			$"../..".add_child(bloodtrail)
+			#var gib = gibs.pick_random().instantiate()
+			#gib.linear_velocity = Vector3(randf_range(-10, 10), randf_range(12, 16), randf_range(-10, 10))
+			##gib.rotation = Vector3(randf_range(-360, 360), randf_range(-360, 360), randf_range(-360, 360))
+			#gib.position = global_position
+			#gib.position.x += randf_range(-1, 1)
+			#gib.position.z += randf_range(-1, 1)
+			#$"../..".add_child(gib)
+			#
+			#var blood = preload("res://scene/blood.tscn").instantiate()
+			#blood.position = global_position
+			#blood.emitting = true
+			#blood.position.y += 0.3
+			#$"../..".add_child(blood)
+			#
+			#var bloodtrail = preload("res://scene/bloodtrail.tscn").instantiate()
+			#bloodtrail.position = global_position
+			#bloodtrail.position.y += 0.3
+			#bloodtrail.emitting = true
+			#$"../..".add_child(bloodtrail)
 		
 		get_parent().queue_free()

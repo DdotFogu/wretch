@@ -6,7 +6,7 @@
 "wad" ""
 "classname" "worldspawn"
 "_tb_mod" "assets"
-"_tb_textures" "textures;textures\world"
+"_tb_textures" "textures"
 // brush 0
 {
 ( -1064 1064 16 ) ( -1064 -64 16 ) ( -1064 -64 -16 ) world/stone_path [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1

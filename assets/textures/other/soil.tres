@@ -1,8 +1,0 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dckv7gjly5jsr"]
-
-[ext_resource type="Texture2D" uid="uid://d4d05flymp7dn" path="res://assets/textures/other/soil.jpg" id="1_tb8n1"]
-
-[resource]
-albedo_texture = ExtResource("1_tb8n1")
-metallic_specular = 0.0
-texture_filter = 2

@@ -24,10 +24,8 @@ func play():
 	print(key_name)
 	
 	if door_state == state.Closed:
-		door_state = state.Open
-		
 		for item in inv_component.items:
-			print(item["color"])
+			door_state = state.Open
 			if item["color"] == color_to_check:
 				inv_component.remove_item(key_name)
 				$AnimationPlayer.play("open")
