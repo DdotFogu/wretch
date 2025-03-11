@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqmhk2uw4b30m"
+uid="uid://dw2ejnwt2dj5y"
 path.s3tc="res://.godot/imported/fleshgib_flesh.png-c49c7a39b3b2a614529164ba7db2572b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "2ce5bfbd3f3dfe2bc64b54dbc1ba6795"
 }
 
 [deps]

@@ -1,11 +1,40 @@
 [gd_scene load_steps=12 format=3 uid="uid://cflj7cj4iiwqa"]
 
 [ext_resource type="Script" path="res://Script/shake.gd" id="1_bgxbm"]
-[ext_resource type="Script" path="res://Script/interact_text.gd" id="1_bv5nq"]
 [ext_resource type="Shader" path="res://shader/vignette.gdshader" id="1_iomu0"]
 [ext_resource type="Script" path="res://Script/fps.gd" id="1_j1qk6"]
 [ext_resource type="Texture2D" uid="uid://d24l4j7tsv24c" path="res://assets/textures/icons/cursor.png" id="1_onret"]
 [ext_resource type="AudioStream" uid="uid://bpt8qf7yovffk" path="res://assets/mp3/sam.wav" id="2_5ayex"]
+
+[sub_resource type="GDScript" id="GDScript_11nl0"]
+script/source = "extends RichTextLabel
+
+var id : int = 0
+
+func doText(bbcode, showText, pitchMin, pitchMax, sizeY):
+	position.y = sizeY
+	
+	id += 1
+	var currentId = id
+	self.text = bbcode
+	for char in showText:
+		if id > currentId:
+			return
+		if char == \"|\":
+			clear()
+			self.text = bbcode
+			continue
+		if char == \"/\":
+			await get_tree().create_timer(0.3).timeout
+			continue
+		self.text += char
+		get_node(\"Type\").pitch_scale = randf_range(pitchMin, pitchMax)
+		get_node(\"Type\").play()
+		await get_tree().create_timer(0.03).timeout
+	await get_tree().create_timer(5).timeout
+	print(\"Text clear\")
+	clear()
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jv6ai"]
 shader = ExtResource("1_iomu0")
@@ -110,7 +139,7 @@ offset_top = 229.0
 offset_right = 1152.0
 offset_bottom = 648.0
 bbcode_enabled = true
-script = ExtResource("1_bv5nq")
+script = SubResource("GDScript_11nl0")
 
 [node name="Type" type="AudioStreamPlayer" parent="InteractText"]
 stream = ExtResource("2_5ayex")

@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cup7jb5ch702t" path="res://scene/door.tscn" id="10_fkb1w"]
 [ext_resource type="PackedScene" uid="uid://wietsr28cmxy" path="res://scene/fan.tscn" id="12_8si1t"]
 [ext_resource type="PackedScene" uid="uid://igm1ejv0ip75" path="res://scene/enemies/Fester.tscn" id="14_y60tu"]
-[ext_resource type="PackedScene" uid="uid://ct8fa0c8wfqcx" path="res://scene/key_red.tscn" id="17_iupi4"]
+[ext_resource type="PackedScene" uid="uid://ct8fa0c8wfqcx" path="res://scene/pickups/key_red.tscn" id="17_iupi4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wxuiy"]
 shader = ExtResource("2_7n2u7")
@@ -163,7 +163,7 @@ shading_mode = 0
 albedo_color = Color(0, 1, 0.423529, 1)
 albedo_texture = ExtResource("8_8gi08")
 uv1_scale = Vector3(333, 333, 333)
-uv1_offset = Vector3(16695.5, 5549.85, 0)
+uv1_offset = Vector3(17307.8, 5778.91, 0)
 texture_filter = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1haln"]
@@ -192,7 +192,7 @@ script = ExtResource("4_c7kj3")
 local_map_file = "res://assets/maps/Dev.map"
 map_settings = ExtResource("5_vydd2")
 
-[node name="entity_0_worldspawn" type="StaticBody3D" parent="NavigationRegion3D/FuncGodotMap"]
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="NavigationRegion3D/FuncGodotMap" groups=["ground"]]
 collision_mask = 0
 
 [node name="entity_0_mesh_instance" type="MeshInstance3D" parent="NavigationRegion3D/FuncGodotMap/entity_0_worldspawn"]
@@ -272,8 +272,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8494, 15.5854, -50)
 [node name="Fan" parent="." instance=ExtResource("12_8si1t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.645625, -56)
 
-[node name="creaturebody" parent="." instance=ExtResource("14_y60tu")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 26.596, 1.64, -39.2109)
-
 [node name="Door" parent="." instance=ExtResource("10_fkb1w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.3734, 4.80417, -5.37273)
+
+[node name="Fester" parent="." instance=ExtResource("14_y60tu")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 20.1835, 1.9574, -38.8336)

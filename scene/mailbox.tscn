@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=4 uid="uid://4dwkfujpqlpf"]
+[gd_scene load_steps=14 format=4 uid="uid://ba44301gayptm"]
 
 [ext_resource type="Texture2D" uid="uid://6g8gbe2o4f7s" path="res://assets/models/mailbox_bark.jpg" id="1_oastn"]
-[ext_resource type="Texture2D" uid="uid://nfye74l3pr8f" path="res://assets/models/mailbox_rust.jpg" id="2_2v32y"]
+[ext_resource type="Texture2D" uid="uid://cq11qwvditmmo" path="res://assets/models/mailbox_rust.jpg" id="2_2v32y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4xiuk"]
 resource_name = "Material"

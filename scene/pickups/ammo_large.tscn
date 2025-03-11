@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=4 uid="uid://diuttct43hygr"]
 
-[ext_resource type="Script" path="res://Script/ammo_pickup.gd" id="1_deah3"]
-[ext_resource type="Texture2D" uid="uid://ce5rvjb70po2q" path="res://assets/models/ammo_box_large_ammo_box_large.png" id="2_nblww"]
-[ext_resource type="Texture2D" uid="uid://d24l4j7tsv24c" path="res://assets/textures/icons/cursor.png" id="2_xqrdv"]
+[ext_resource type="Script" path="res://Script/ammo_pickup.gd" id="1_ya8on"]
+[ext_resource type="Texture2D" uid="uid://d24l4j7tsv24c" path="res://assets/textures/icons/cursor.png" id="2_mwwi0"]
+[ext_resource type="Texture2D" uid="uid://ce5rvjb70po2q" path="res://assets/models/ammo_box_large_ammo_box_large.png" id="3_qheyb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ffgve"]
 size = Vector3(2.01245, 1.99609, 4.99091)
@@ -11,7 +11,7 @@ size = Vector3(2.01245, 1.99609, 4.99091)
 resource_name = "Material"
 cull_mode = 2
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_nblww")
+albedo_texture = ExtResource("3_qheyb")
 roughness = 0.5
 texture_filter = 2
 
@@ -85,10 +85,10 @@ _data = {
 }
 
 [node name="ammo_large" type="Node3D"]
-script = ExtResource("1_deah3")
+script = ExtResource("1_ya8on")
 item = Array[Dictionary]([{
 "fade out": true,
-"image": ExtResource("2_xqrdv"),
+"image": ExtResource("2_mwwi0"),
 "name": "health"
 }])
 

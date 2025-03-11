@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://bk1exu1p74wrs"]
+[gd_scene load_steps=41 format=4 uid="uid://bk1exu1p74wrs"]
 
 [ext_resource type="Script" path="res://addons/GoldGdt/src/GoldGdt_Pawn.gd" id="1_qx48f"]
 [ext_resource type="Resource" uid="uid://c770d2068in3p" path="res://addons/GoldGdt/Default.tres" id="2_m0ukv"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://bjn6gv7sdaa5o" path="res://assets/textures/addons/kenney_particle_pack/scorch_01.png" id="14_fyh6l"]
 [ext_resource type="PackedScene" uid="uid://5uec5yi5g482" path="res://scene/projectiles/disc_proj.tscn" id="17_uyfhp"]
 [ext_resource type="Texture2D" uid="uid://d1sg426q17tk8" path="res://assets/textures/icons/shotgun_Crosshair.png" id="18_dxujm"]
+[ext_resource type="Script" path="res://Script/shake.gd" id="18_so0ii"]
 [ext_resource type="PackedScene" uid="uid://cpcbh308ye317" path="res://scene/health_component.tscn" id="19_3jipj"]
 [ext_resource type="Script" path="res://Script/inventory_component.gd" id="19_3vlam"]
 
@@ -61,18 +62,6 @@ _surfaces = [{
 
 [sub_resource type="Animation" id="Animation_cucmd"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CPUParticles3D:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_e6dmd"]
 resource_name = "pickup"
@@ -104,29 +93,17 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0.191986, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(3.14159, 0, 0), Vector3(6.45772, 0, 0), Vector3(6.28319, 0, 0)]
 }
-tracks/2/type = "value"
+tracks/2/type = "audio"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CPUParticles3D:emitting")
+tracks/2/path = NodePath("shoot")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "audio"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("shoot")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "clips": [],
 "times": PackedFloat32Array()
 }
-tracks/3/use_blend = true
+tracks/2/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sn41g"]
 _data = {
@@ -416,7 +393,7 @@ sway_right = Vector3(0, -0.4, 0)
 script = ExtResource("13_s1wbv")
 
 [node name="shotgun" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob"]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, -1.78655e-07, 0, 1.78655e-07, 0.04, 0.075, -0.083, -0.115)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0.075, -0.083, -0.115)
 
 [node name="Cube" type="MeshInstance3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/shotgun"]
 transform = Transform3D(-0.707107, -0.707107, 8.74228e-08, -0.707107, 0.707107, 0, -6.18172e-08, -6.18172e-08, -1, 0, 0, 0)
@@ -434,16 +411,6 @@ transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, -8.80273)
 volume_db = -35.0
 max_distance = 4096.0
 playback_type = 1
-
-[node name="CPUParticles3D" type="GPUParticles3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/shotgun"]
-transform = Transform3D(1, 0, 0, 3.90463e-13, 1, -4.54747e-13, -5.55286e-15, 4.54747e-13, 1, -5.96046e-07, -9.53674e-07, -8.77718)
-emitting = false
-amount = 1
-lifetime = 0.1
-one_shot = true
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_45vxa")
-draw_pass_1 = SubResource("QuadMesh_oiok1")
 
 [node name="disc_launcher" type="Node3D" parent="Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob"]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0.075, -0.12, -0.115)
@@ -485,11 +452,11 @@ Weapons = Array[Dictionary]([{
 "autofire": true,
 "bullets": 5,
 "crosshair": NodePath("Crosshairs/Shotgun Crosshair"),
-"damage": 10,
+"damage": 25,
 "firerate": 0.66,
 "hitscan": true,
 "max ammo": 25,
-"spread": 1,
+"spread": 2.0,
 "viewmodel": NodePath("../Interpolated Camera/Arm/Arm Anchor/viewmodels/Item Bob/shotgun")
 }, {
 "autofire": true,
@@ -528,6 +495,9 @@ grow_vertical = 2
 scale = Vector2(0.3, 0.3)
 pivot_offset = Vector2(20, 20)
 texture = ExtResource("18_dxujm")
+script = ExtResource("18_so0ii")
+y_offset = 304.0
+x_offset = 556.0
 
 [node name="inventory_component" type="Node3D" parent="."]
 script = ExtResource("19_3vlam")

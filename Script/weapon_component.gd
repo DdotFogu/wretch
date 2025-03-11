@@ -18,13 +18,13 @@ func _process(delta: float) -> void:
 		get_node(currentWeapon["viewmodel"]).visible = true
 		get_node(currentWeapon["crosshair"]).visible = true
 		
-		if currentWeapon["ammo"] != null:
+		if currentWeapon.has("ammo"):
 			ammo_text.text = "[center][font='res://October Crow.ttf'][shake rate=50.0 level=0 connected=0][font_size=24][color=]" + get_node(currentWeapon["viewmodel"]).name + "\n" + \
 			str(currentWeapon["ammo"])
 		
 		if Input.is_action_pressed("pi_fire") && canfire == true:
 			
-			if currentWeapon["ammo"] != null:
+			if currentWeapon.has("ammo"):
 				if currentWeapon["ammo"] > 0:
 					pass
 				else:
@@ -60,6 +60,7 @@ func fire_gun_hitscan():
 	canfire = false
 	%waitTime.wait_time = currentWeapon["firerate"]
 	%waitTime.start()
+	get_node(currentWeapon["crosshair"]).apply_shake(0.2)
 	camera_shake.add_trauma(1)
 	camera_recoil.recoilFire(false)
 	
@@ -71,23 +72,28 @@ func fire_gun_hitscan():
 		bulletRays.append(raycast)
 		
 		raycast.position = $"../Body".global_position
+		raycast.position.y += 0.7
 		raycast.rotation = $"../Interpolated Camera".rotation
-		raycast.target_position.z = -25
+		raycast.target_position.z = -40
 		raycast.target_position.x = randf_range(-currentWeapon["spread"], currentWeapon["spread"])
 		raycast.target_position.y = randf_range(-currentWeapon["spread"], currentWeapon["spread"])
-		raycast.collision_mask = 4
+		raycast.collision_mask = 5
 		
 		get_node("/root/Main").add_child(raycast)
 		
 	await get_tree().create_timer(0.1).timeout
 	for raycast in bulletRays:
 		if raycast.is_colliding():
-			#var blood = preload("res://scene/blood.tscn").instantiate()
-			#blood.position = raycast.get_collision_point()
-			#get_node("/root/Main").add_child(blood)
-			#blood.emitting = true
-			raycast.get_collider().get_node("health_component").hurt(currentWeapon["damage"])
-		raycast.queue_free()
+			if raycast.get_collider().is_in_group("ground"):
+				var obj = raycast.get_collider()
+				var nrml = raycast.get_collision_normal()
+				var pt = raycast.get_collision_point()
+				BulletDecalPool.spawn_bullet_decal(pt, nrml, obj, raycast.global_basis)
+			
+			for child in raycast.get_collider().get_children():
+				if child.name == "health_component":
+					raycast.get_collider().get_node("health_component").hurt(currentWeapon["damage"])
+		
 	bulletRays.clear()
 
 func fire_gun_proj():

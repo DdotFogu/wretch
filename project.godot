@@ -8,12 +8,17 @@
 
 config_version=5
 
+[animation]
+
+warnings/check_invalid_track_paths=false
+warnings/check_angle_interpolation_type_conflicting=false
+
 [application]
 
 config/name="Wretch"
 run/main_scene="res://scene/level/dev_level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/icon.svg"
 config/size/viewport_height=460
 config/size/viewport_width=720
 config/size/window_height_override=1080
@@ -87,4 +92,5 @@ pm_dash={
 
 [rendering]
 
+textures/decals/filter=0
 occlusion_culling/use_occlusion_culling=true

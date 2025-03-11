@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qtr00oxhxsrj"
+uid="uid://bis2qdekqoph5"
 path.s3tc="res://.godot/imported/health_kit_small_bandage_1.png-10697e23c378e6fd92a637f7edcd2043.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "c23006293ae9594d1a676c50f9155690"
 }
 
 [deps]

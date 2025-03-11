@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lgntx8avf6ve"
-path.s3tc="res://.godot/imported/bed_cloth.jpg-fc3a82bbdde5cc7e7d24d126f01c5d66.s3tc.ctex"
+uid="uid://bh8vfbjq8ycxy"
+path.s3tc="res://.godot/imported/smoke_01.png-e6643dd4aa06b77062a521f21dab7f34.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/models/bed_cloth.jpg"
-dest_files=["res://.godot/imported/bed_cloth.jpg-fc3a82bbdde5cc7e7d24d126f01c5d66.s3tc.ctex"]
+source_file="res://assets/textures/particles/smoke_01.png"
+dest_files=["res://.godot/imported/smoke_01.png-e6643dd4aa06b77062a521f21dab7f34.s3tc.ctex"]
 
 [params]
 

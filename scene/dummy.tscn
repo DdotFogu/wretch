@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://ws4y1tyfifgr"]
+[gd_scene load_steps=3 format=3 uid="uid://bq2mew526sa0q"]
 
 [ext_resource type="PackedScene" uid="uid://cpcbh308ye317" path="res://scene/health_component.tscn" id="1_8jism"]
 

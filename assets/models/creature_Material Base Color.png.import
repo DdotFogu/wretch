@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lgntx8avf6ve"
-path.s3tc="res://.godot/imported/bed_cloth.jpg-fc3a82bbdde5cc7e7d24d126f01c5d66.s3tc.ctex"
+uid="uid://do3fxp8mgjxrd"
+path.s3tc="res://.godot/imported/creature_Material Base Color.png-aa58789203999f0fbb643f208806462f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "4000688ab34c297d53e635a93725138f"
+}
 
 [deps]
 
-source_file="res://assets/models/bed_cloth.jpg"
-dest_files=["res://.godot/imported/bed_cloth.jpg-fc3a82bbdde5cc7e7d24d126f01c5d66.s3tc.ctex"]
+source_file="res://assets/models/creature_Material Base Color.png"
+dest_files=["res://.godot/imported/creature_Material Base Color.png-aa58789203999f0fbb643f208806462f.s3tc.ctex"]
 
 [params]
 

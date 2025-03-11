@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu3gwbusbohay"]
+
+[ext_resource type="Texture2D" uid="uid://q6pitq6gx4xg" path="res://assets/textures/particles/blood_decal_1.png" id="1_diiny"]
+
+[node name="blood_decal" type="Decal"]
+size = Vector3(2, 0.001, 2)
+texture_albedo = ExtResource("1_diiny")
+upper_fade = 1e-05
+lower_fade = 1e-05

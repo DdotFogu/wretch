@@ -1,0 +1,94 @@
+[gd_scene load_steps=13 format=3 uid="uid://dbmnjg7rj71uw"]
+
+[ext_resource type="Texture2D" uid="uid://b3f3lvv4awwbq" path="res://assets/textures/particles/bulletdecal.png" id="1_pf2rl"]
+[ext_resource type="Texture2D" uid="uid://bh8vfbjq8ycxy" path="res://assets/textures/particles/smoke_01.png" id="2_3a8ji"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gj6fg"]
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 1.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 31.0
+gravity = Vector3(0, -2, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6c8i"]
+albedo_color = Color(0, 0, 0, 1)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_rfy2e"]
+material = SubResource("StandardMaterial3D_c6c8i")
+size = Vector2(0.04, 0.025)
+
+[sub_resource type="Curve" id="Curve_0m8i8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.704301, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_cntbh"]
+curve = SubResource("Curve_0m8i8")
+
+[sub_resource type="Gradient" id="Gradient_cyxb2"]
+offsets = PackedFloat32Array(0, 0.78481, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m4kf1"]
+gradient = SubResource("Gradient_cyxb2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u5nue"]
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, 1, 0)
+spread = 180.0
+flatness = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 3.0
+color = Color(1, 0.862745, 0.792157, 0.0196078)
+color_ramp = SubResource("GradientTexture1D_m4kf1")
+alpha_curve = SubResource("CurveTexture_cntbh")
+turbulence_noise_strength = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_esmmt"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_3a8ji")
+metallic_specular = 0.0
+roughness = 0.0
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_gol8r"]
+material = SubResource("StandardMaterial3D_esmmt")
+
+[node name="BulletHole" type="Decal"]
+size = Vector3(0.1, 0.1, 0.1)
+texture_albedo = ExtResource("1_pf2rl")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 3
+lifetime = 10.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_gj6fg")
+draw_pass_1 = SubResource("QuadMesh_rfy2e")
+
+[node name="Dust" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.114797, 0)
+emitting = false
+amount = 5
+lifetime = 15.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_u5nue")
+draw_pass_1 = SubResource("QuadMesh_gol8r")
